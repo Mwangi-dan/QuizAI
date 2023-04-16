@@ -12,7 +12,7 @@ Looking to test your knowledge on a specific topic? This program generates quest
 
 ## Introduction
 
-Our program is designed to help users expand their knowledge on any topic of their choosing. Using OpenAI API, the program generates questions that are tailored to the user's preferences. Users have the option to select their answers from multiple choices or provide their own answers. The answers are then validated and users are rewarded points, while their understanding of the topic is enhanced.
+This program is designed to help users expand their knowledge on any topic of their choosing. Using OpenAI API, the program generates questions that are tailored to the user's preferences. Users have the option to select their answers from multiple choices or provide their own answers. The answers are then validated and users are rewarded points, while their understanding of the topic is enhanced.
 
 ## Features
 
