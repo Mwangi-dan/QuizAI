@@ -70,14 +70,14 @@ def generate_questions(topic, difficulty):
 
     """
     # Generate questions and answers using OpenAI API
-    prompt = f"Generate a new {difficulty} difficulty question about {topic}."
+    prompt = f"Generate a {difficulty} difficulty question about {topic}."
     generated_text = openai.Completion.create(
         engine="text-davinci-003", 
         prompt=prompt,
         max_tokens=800,
         n=1,
         stop=None,
-        temperature=0.3
+        temperature=0.1
     )
     generated_text = generated_text.choices[0].text.strip()
     
@@ -95,7 +95,7 @@ def generate_questions(topic, difficulty):
             max_tokens=800,
             n=1,
             stop=None,
-            temperature=0.2
+            temperature=0.4
         ).choices[0].text.strip()
         
         # Write code that splits the answers into the correct answer and the fake answers
@@ -123,7 +123,8 @@ def instructions():
     print("3. You will have to choose the correct answer.")
     print("4. You will be given a score at the end of the game.")
     print("5. You can choose to play again or quit the game.")
-    print("Goodluck!\n")
+    print("\t\tGoodluck!\n")
+    print("\t\t------------------")
 
 
 def gameplay():
@@ -183,3 +184,30 @@ def gameplay():
                 print("Invalid input. Please enter a valid answer (Y/N): ")
         if play_again.upper() == "N":
             break
+
+def game_menu():
+    """
+    This function allows user to choose to play the game or quit the game.
+    """
+    print("Please select an option:")
+    print("1. Take a quiz")
+    print("2. Delete profile")
+    print("3. Reset password")
+    print("4. Logout")
+    choice = input("Please enter your choice: ")
+
+    while True:
+        try:
+            choice = int(input("Please enter your choice: "))
+            assert choice in [1, 2, 3, 4]
+            break
+        except AssertionError:
+            print("Invalid input. Please enter a valid choice (1 to 4): ")
+        except ValueError:
+            print("Invalid input. Please enter a valid choice (1 to 4): ")
+    
+    return choice
+
+
+def space():
+    print("-----------------------------\n")

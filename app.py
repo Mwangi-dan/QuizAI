@@ -1,5 +1,6 @@
 from menu import *
 from user import *
+from database import register_new_user
 
 def main():
     while True:
@@ -8,7 +9,8 @@ def main():
         print("Please select an option:")
         print("1. Login")
         print("2. Register")
-        print("3. Exit")
+        print("3. Take a quiz (without logging in)")
+        print("4. Exit")
         choice = input("Please enter your choice: ")
         try:
             choice = int(choice)
@@ -44,10 +46,19 @@ def main():
 
 
     elif choice == 2:
-        user = register_user()
+        username, email, pwd = register_user()
+        try:
+            assert register_new_user(username, email, pwd)
+            print("Registration successful!")
+        except AssertionError:
+            print("Registration failed. Please try again.")
 
 
     elif choice == 3:
+        instructions()
+        gameplay()
+
+    else:
         print("Thank you for using QuizAI!")
         exit()
 
