@@ -25,5 +25,5 @@ This program is designed to help users expand their knowledge on any topic of th
 
 ## Usage
 
-Provide examples or instructions for how to use the project.
+
 

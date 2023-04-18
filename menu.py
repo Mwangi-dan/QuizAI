@@ -22,7 +22,7 @@ def correct_spelling(input_str):
         max_tokens=50,
         n=1,
         stop=None,
-        temperature=0.5,
+        temperature=0,
     )
 
     corrected_str = response.choices[0].text.strip()
@@ -77,36 +77,35 @@ def generate_questions(topic, difficulty):
         max_tokens=800,
         n=1,
         stop=None,
-        temperature=0.1
+        temperature=0
     )
     generated_text = generated_text.choices[0].text.strip()
     
     qa_list = generated_text.split("\n")
+    question = generated_text
 
     qa_dict = {}
 
-    for question in qa_list:
+    # Write code that generates the correct answer and three false answers
 
-        # Write code that generates the correct answer and three false answers
-
-        answer = openai.Completion.create(
-            engine="text-davinci-002", 
-            prompt=f"Generate the correct answer plus three false answers to the question. '{question}'",
-            max_tokens=800,
-            n=1,
-            stop=None,
-            temperature=0.4
-        ).choices[0].text.strip()
-        
-        # Write code that splits the answers into the correct answer and the fake answers
-        answer = answer.split("\n")
-        # get rid of number or uppercase or lowercase letters before answer
-        answer = [re.sub(r"^[0-9]\.", "", x) for x in answer]
-        # Get rid of empty strings
-        answer = [x for x in answer if x != ""]
-        correct_answer = answer[0]
-        answer_choices = answer[1:3]
-        qa_dict[question] = [correct_answer] + answer_choices
+    answer = openai.Completion.create(
+        engine="text-davinci-002", 
+        prompt=f"Generate the correct answer plus three false answers to the question. '{question}'",
+        max_tokens=800,
+        n=1,
+        stop=None,
+        temperature=0.4
+    ).choices[0].text.strip()
+    
+    # Write code that splits the answers into the correct answer and the fake answers
+    answer = answer.split("\n")
+    # get rid of number or uppercase or lowercase letters before answer
+    answer = [re.sub(r"^[0-9]\.", "", x) for x in answer]
+    # Get rid of empty strings
+    answer = [x for x in answer if x != ""]
+    correct_answer = answer[0]
+    answer_choices = answer[1:3]
+    qa_dict[question] = [correct_answer] + answer_choices
 
     return qa_dict
 
@@ -150,6 +149,7 @@ def gameplay():
                 time.sleep(1)
                 print("GO!")
                 time.sleep(1)
+                
             for key, value in qa_dict.items():
                 correct_answer = value[0]
                 random.shuffle(value)
